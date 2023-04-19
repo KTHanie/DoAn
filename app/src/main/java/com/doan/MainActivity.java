@@ -12,10 +12,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //sa mưa giông khùng
         //sa mưa giông crazy
-        //hiii
+        //hiii bà già
 
         //hé lu
 
-        //mới nè
+        //aaaaaaa
     }
 }
