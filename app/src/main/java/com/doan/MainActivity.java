@@ -4,19 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        f= new Fragment_Pro();
+        f= new HomeFragment();
         loadFragment(f);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener
@@ -58,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.navigation_profile:
                     toolbar.setTitle("Profile");
                     f= new Fragment_Pro();
+                    loadFragment(f);
+                    return true;
+                case R.id.navigation_home:
+                    toolbar.setTitle("Profile");
+                    f= new HomeFragment();
                     loadFragment(f);
                     return true;
             }
