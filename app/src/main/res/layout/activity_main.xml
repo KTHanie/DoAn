@@ -15,16 +15,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <RelativeLayout
+            android:id="@+id/relative"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:background="@color/orange"
-            android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize">
 
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/orange"
+                android:elevation="4dp"
 
-            />
+                android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                <EditText
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@android:color/white"
+                    android:cursorVisible="false"
+                    android:drawableRight="@drawable/ic_search_black"
+                    android:hint="Name, description"
+                    android:padding="8dp"
+                    android:paddingLeft="15dp"/>
+            </androidx.appcompat.widget.Toolbar>
+        </RelativeLayout>
 
         <FrameLayout
             android:id="@+id/fragment_container"
