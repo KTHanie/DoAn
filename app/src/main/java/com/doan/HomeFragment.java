@@ -1,12 +1,18 @@
 package com.doan;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +66,71 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+         RelativeLayout rl_HCM = view.findViewById(R.id.imgHCM);
+        rl_HCM.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 Intent intent = new Intent(getActivity(), Login.class);
+                 intent.putExtra("furniture", "Hé lu");
+                 startActivity(intent);
+             }
+         });
+
+        RelativeLayout rl_HN = view.findViewById(R.id.imgHN);
+        rl_HN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Login.class);
+                intent.putExtra("furniture", "Hé lu");
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout rl_DN = view.findViewById(R.id.imgDN);
+        rl_DN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Login.class);
+                intent.putExtra("furniture", "Hé lu");
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout rl_Hue = view.findViewById(R.id.imgHue);
+        rl_Hue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Login.class);
+                intent.putExtra("furniture", "Hé lu");
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout rl_DL = view.findViewById(R.id.imgDL);
+        rl_DL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Login.class);
+                intent.putExtra("furniture", "Hé lu");
+                startActivity(intent);
+            }
+        });
+
+        RelativeLayout rl_QN = view.findViewById(R.id.imgQN);
+        rl_QN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Login.class);
+                intent.putExtra("furniture", "Hé lu");
+                startActivity(intent);
+            }
+        });
+
     }
 }
