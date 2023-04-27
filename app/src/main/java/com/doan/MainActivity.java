@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
                     toolbar.setTitle("Profile");

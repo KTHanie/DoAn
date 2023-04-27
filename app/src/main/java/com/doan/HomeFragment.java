@@ -81,12 +81,11 @@ public class HomeFragment extends Fragment {
                  startActivity(intent);
              }
          });
-
         RelativeLayout rl_HN = view.findViewById(R.id.imgHN);
         rl_HN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Login.class);
+                Intent intent = new Intent(getActivity(), Detail.class);
                 intent.putExtra("furniture", "Hé lu");
                 startActivity(intent);
             }
