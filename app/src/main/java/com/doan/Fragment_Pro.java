@@ -24,14 +24,14 @@ public class Fragment_Pro extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnDN = view.findViewById(R.id.btnDN);
-        btnDN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent();
-                intent.setClass(view.getContext(),Login.class);
-                startActivity(intent);
-            }
-        });
+//        btnDN = view.findViewById(R.id.btnDN);
+//        btnDN.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent();
+//                intent.setClass(view.getContext(),Login.class);
+//                startActivity(intent);
+//            }
+  //      });
     }
 }
