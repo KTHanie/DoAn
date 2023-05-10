@@ -43,6 +43,11 @@ public class City {
         this.hinhAnh = hinhAnh;
     }
 
+    public City(String tenTinh, Bitmap hinhAnh) {
+        this.tenTinh = tenTinh;
+        this.hinhAnh = hinhAnh;
+    }
+
     public static Bitmap convertStringToBitmapFromAccess (Context context, String filename) {
         AssetManager assetManager = context.getAssets();
         try {

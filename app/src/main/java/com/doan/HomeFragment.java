@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +23,9 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    ListView lstvCity;
+    ArrayList<City> arrayList = new ArrayList<>();
+    CityAdapter cityAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,65 +78,12 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-         RelativeLayout rl_HCM = view.findViewById(R.id.imgHCM);
-        rl_HCM.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 Intent intent = new Intent(getActivity(), LocationActivity.class);
-                 //Intent intent = new Intent(getActivity(), Detail.class);
-                 intent.putExtra("furniture", "Hé lu");
-                 startActivity(intent);
-             }
-         });
-        RelativeLayout rl_HN = view.findViewById(R.id.imgHN);
-        rl_HN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Detail.class);
-                intent.putExtra("furniture", "Hé lu");
-                startActivity(intent);
-            }
-        });
+        lstvCity = (ListView) view.findViewById(R.id.lstvCity);
 
-        RelativeLayout rl_DN = view.findViewById(R.id.imgDN);
-        rl_DN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Login.class);
-                intent.putExtra("furniture", "Hé lu");
-                startActivity(intent);
-            }
-        });
+        arrayList.add(new City("Hồ Chí Minh", City.convertStringToBitmapFromAccess(getContext(), "hcm.png")));
 
-        RelativeLayout rl_Hue = view.findViewById(R.id.imgHue);
-        rl_Hue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Login.class);
-                intent.putExtra("furniture", "Hé lu");
-                startActivity(intent);
-            }
-        });
-
-        RelativeLayout rl_DL = view.findViewById(R.id.imgDL);
-        rl_DL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Login.class);
-                intent.putExtra("furniture", "Hé lu");
-                startActivity(intent);
-            }
-        });
-
-        RelativeLayout rl_QN = view.findViewById(R.id.imgQN);
-        rl_QN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Login.class);
-                intent.putExtra("furniture", "Hé lu");
-                startActivity(intent);
-            }
-        });
+        cityAdapter = new CityAdapter(getContext(), R.layout.layout_item_city, arrayList);
+        lstvCity.setAdapter(cityAdapter);
 
     }
 }
