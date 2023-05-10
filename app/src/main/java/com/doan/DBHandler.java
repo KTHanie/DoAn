@@ -56,7 +56,24 @@ public class DBHandler extends SQLiteOpenHelper {
 //        c.close();
 //        return a;
 //    }
+    public Location getLocation(String maDD) {
+        mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.rawQuery("SELECT *, TenTinh FROM DiaDiem, TinhThanh WHERE MaDD='" + maDD + "' and DiaDiem.MaTinh = TinhThanh.MaTinh", null);
 
+        Location location = new Location();
+
+        if (cursor.moveToFirst()) {
+            location.setMaDD(cursor.getString(0));
+            location.setTenDD(cursor.getString(1));
+            location.setMoTa(cursor.getString(2));
+            location.setMaTinh(cursor.getString(9));
+            location.setDiaChi(cursor.getString(4));
+            location.setHinhAnh(cursor.getString(5));
+        }
+        cursor.close();
+        mDatabase.close();
+        return location;
+    }
     public ArrayList<Location> getListLocation(String maTinh) {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE MaTinh='" + maTinh + "'", null);

@@ -68,6 +68,11 @@ public class Location {
         this.hinhAnh = hinhAnh;
     }
 
+    public Location(String tenDD, String hinhAnh) {
+        this.tenDD = tenDD;
+        this.hinhAnh = hinhAnh;
+    }
+
     public Location(String maDD, String tenDD, String moTa, String maTinh, String diaChi, String hinhAnh) {
         this.maDD = maDD;
         this.tenDD = tenDD;

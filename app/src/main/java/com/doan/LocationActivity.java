@@ -6,8 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,16 @@ public class LocationActivity extends AppCompatActivity {
 
         locationAdapter = new LocationAdapter(this, R.layout.layout_item_location, arrayList);
         lstv.setAdapter(locationAdapter);
+
+        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(LocationActivity.this, arrayList.get(i).getMaDD(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LocationActivity.this, Detail.class);
+                intent.putExtra("MaDD", arrayList.get(i).getMaDD());
+                startActivity(intent);
+            }
+        });
     }
     private void addControls()
     {
