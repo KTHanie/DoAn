@@ -34,8 +34,9 @@ public class Fragment_Pro extends Fragment {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                f= new Fav_Fragment();
-//                loadFragment(f);
+                f= new FavFragment();
+
+                loadFragment(f);
             }
         });
        a.setOnClickListener(new View.OnClickListener() {
