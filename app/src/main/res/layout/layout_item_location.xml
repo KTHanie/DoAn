@@ -7,20 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-<!--        <ImageView-->
-
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="200dp"-->
-<!--            tools:srcCompat="@tools:sample/avatars"-->
-<!--            android:layout_gravity="center"-->
-<!--            />-->
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imgLocation"
             android:layout_width="match_parent"
             android:layout_height="195dp"
+            android:layout_marginTop="20dp"
             android:alpha="0.8"
             android:scaleType="fitCenter"
             android:src="@drawable/hcm"
@@ -32,6 +26,7 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -45,9 +40,9 @@
                 android:id="@+id/txtLocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:text="HỒ CHÍ MINH"
                 android:textColor="@color/black"
+                android:layout_marginRight="50dp"
                 android:textSize="20sp" />
 
         </LinearLayout>

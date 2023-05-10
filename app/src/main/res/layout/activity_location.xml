@@ -10,10 +10,10 @@
         android:id="@+id/toolbar4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DED6D8"
-        android:backgroundTint="#DED6D8"
+        android:background="@color/orange"
+        android:backgroundTint="@color/orange"
         android:elevation="4dp"
-        tools:layout_editor_absoluteX="20dp" >
+        tools:layout_editor_absoluteX="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,16 +25,18 @@
                 android:id="@+id/btnBackDD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/orange"
+
                 app:srcCompat="@drawable/ic_back24" />
 
             <TextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/tvTitleDD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:layout_marginTop="10dp"
+                android:text="Location"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
