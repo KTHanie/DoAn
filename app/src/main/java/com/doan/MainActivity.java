@@ -11,16 +11,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
     Fragment f;
     Toolbar toolbar;
+
+    RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.navigation_home:
                     toolbar.setTitle("Profile");
                     f= new HomeFragment();
+                    loadFragment(f);
+                    return true;
+                case R.id.navigation_dashboard:
+                    toolbar.setTitle("Fav");
+                    f= new FavFragment();
                     loadFragment(f);
                     return true;
             }

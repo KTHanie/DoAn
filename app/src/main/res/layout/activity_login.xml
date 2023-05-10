@@ -50,7 +50,7 @@
 
         <TextView
             android:layout_marginTop="70dp"
-            android:id="@+id/textView"
+            android:id="@+id/txtFav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Tên"
