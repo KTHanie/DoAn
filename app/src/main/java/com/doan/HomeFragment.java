@@ -26,6 +26,7 @@ public class HomeFragment extends Fragment {
     ListView lstvCity;
     ArrayList<City> arrayList = new ArrayList<>();
     CityAdapter cityAdapter;
+    //DBHandler dbHandler;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,16 +75,18 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
 
-        lstvCity = (ListView) view.findViewById(R.id.lstvCity);
+            lstvCity = (ListView) view.findViewById(R.id.lstvCity);
 
-        arrayList.add(new City("Hồ Chí Minh", City.convertStringToBitmapFromAccess(getContext(), "hcm.png")));
+            arrayList.add(new City("Hồ Chí Minh", City.convertStringToBitmapFromAccess(getContext(), "hcm.png")));
+            //dbHandler = new DBHandler(getContext());
+            //arrayList = dbHandler.getListCity(getContext());
 
-        cityAdapter = new CityAdapter(getContext(), R.layout.layout_item_city, arrayList);
-        lstvCity.setAdapter(cityAdapter);
+            cityAdapter = new CityAdapter(getContext(), R.layout.layout_item_city, arrayList);
+            lstvCity.setAdapter(cityAdapter);
 
-    }
+        }
 }
