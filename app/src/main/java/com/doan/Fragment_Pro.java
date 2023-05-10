@@ -6,16 +6,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Fragment_Pro extends Fragment {
-    Button btnDN;
+    TextView a,b,c;
+    Fragment f;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,14 +28,30 @@ public class Fragment_Pro extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        btnDN = view.findViewById(R.id.btnDN);
-//        btnDN.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent();
-//                intent.setClass(view.getContext(),Login.class);
-//                startActivity(intent);
-//            }
-  //      });
+        a=(TextView) view.findViewById(R.id.txtHome);
+        b=(TextView) view.findViewById(R.id.txtFav);
+        c=(TextView) view.findViewById(R.id.txtlogout);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                f= new Fav_Fragment();
+//                loadFragment(f);
+            }
+        });
+       a.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               f= new HomeFragment();
+               loadFragment(f);
+           }
+       });
+    }
+
+    private void loadFragment(Fragment k)
+    {
+        FragmentTransaction tra= getFragmentManager().beginTransaction();
+        tra.replace(R.id.frame_container, k);
+        tra.addToBackStack(null);
+        tra.commit();
     }
 }
