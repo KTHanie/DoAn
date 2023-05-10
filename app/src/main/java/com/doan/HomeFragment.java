@@ -76,7 +76,8 @@ public class HomeFragment extends Fragment {
         rl_HCM.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 Intent intent = new Intent(getActivity(), Detail.class);
+                 Intent intent = new Intent(getActivity(), LocationActivity.class);
+                 //Intent intent = new Intent(getActivity(), Detail.class);
                  intent.putExtra("furniture", "Hé lu");
                  startActivity(intent);
              }
