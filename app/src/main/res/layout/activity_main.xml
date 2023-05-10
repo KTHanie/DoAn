@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,55 +15,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/relative"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="@color/orange"
-            android:minHeight="?attr/actionBarSize">
+            android:elevation="4dp"
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <EditText
+                android:id="@+id/search_view"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@color/orange"
-                android:elevation="4dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white"
+                android:cursorVisible="false"
+                android:drawableRight="@drawable/ic_search_black"
+                android:hint="Name, description"
+                android:padding="8dp"
+                android:paddingLeft="15dp" />
+        </androidx.appcompat.widget.Toolbar>
 
-                android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <EditText
-                    android:id="@+id/search_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@android:color/white"
-                    android:cursorVisible="false"
-                    android:drawableRight="@drawable/ic_search_black"
-                    android:hint="Name, description"
-                    android:padding="8dp"
-                    android:paddingLeft="15dp"/>
-            </androidx.appcompat.widget.Toolbar>
-        </RelativeLayout>
-
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/nav_view"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
-        app:itemIconTint="@color/gray"
-        app:itemTextColor="@color/black">
-
-    </com.google.android.material.navigation.NavigationView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -92,4 +69,4 @@
         app:menu="@menu/navigation" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
