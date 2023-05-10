@@ -8,9 +8,11 @@ import android.graphics.BitmapFactory;
 import java.io.IOException;
 import java.io.InputStream;
 
+import kotlin.text.UStringsKt;
+
 public class Location {
     String maDD, tenDD, moTa, maTinh, diaChi;
-    Bitmap hinhAnh;
+    String hinhAnh;
 
     public String getMaDD() {
         return maDD;
@@ -52,20 +54,21 @@ public class Location {
         this.diaChi = diaChi;
     }
 
-    public Bitmap getHinhAnh() {
+    public String getHinhAnh() {
         return hinhAnh;
     }
 
-    public void setHinhAnh(Bitmap hinhAnh) {
+    public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 
-    public Location(String tenDD, Bitmap hinhAnh) {
+    public Location(String maDD, String tenDD, String hinhAnh) {
+        this.maDD = maDD;
         this.tenDD = tenDD;
         this.hinhAnh = hinhAnh;
     }
 
-    public Location(String maDD, String tenDD, String moTa, String maTinh, String diaChi, Bitmap hinhAnh) {
+    public Location(String maDD, String tenDD, String moTa, String maTinh, String diaChi, String hinhAnh) {
         this.maDD = maDD;
         this.tenDD = tenDD;
         this.moTa = moTa;

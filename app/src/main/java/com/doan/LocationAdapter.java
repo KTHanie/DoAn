@@ -33,7 +33,7 @@ public class LocationAdapter extends ArrayAdapter {
             convertView = LayoutInflater.from(context).inflate(resource, null);
         }
         ImageView imgv = (ImageView) convertView.findViewById(R.id.imgLocation);
-        imgv.setImageBitmap(item.getHinhAnh());
+        imgv.setImageBitmap(Location.convertStringToBitmapFromAccess(context, item.getHinhAnh()) );
         TextView nameProduct = (TextView) convertView.findViewById(R.id.txtLocation);
         nameProduct.setText(item.getTenDD());
 

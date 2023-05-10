@@ -32,7 +32,7 @@ public class CityAdapter extends ArrayAdapter {
             convertView = LayoutInflater.from(context).inflate(resource, null);
         }
         ImageView imgv = (ImageView) convertView.findViewById(R.id.imgCity);
-        imgv.setImageBitmap(item.getHinhAnh());
+        imgv.setImageBitmap(City.convertStringToBitmapFromAccess(context, item.getHinhAnh()));
         TextView nameProduct = (TextView) convertView.findViewById(R.id.txtCity);
         nameProduct.setText(item.getTenTinh());
 

@@ -20,6 +20,7 @@ public class LocationActivity extends AppCompatActivity {
     ListView lstv;
     ArrayList<Location> arrayList = new ArrayList<>();
     LocationAdapter locationAdapter;
+    DBHandler dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,11 @@ public class LocationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Intent intent = getIntent();
+        String maTinh =intent.getStringExtra("MaTinh");
 
-        arrayList.add(new Location("Hồ Chí Minh", Location.convertStringToBitmapFromAccess(this, "hcm.png")));
+        dbHandler = new DBHandler(this);
+        arrayList = dbHandler.getListLocation(maTinh);
 
         locationAdapter = new LocationAdapter(this, R.layout.layout_item_location, arrayList);
         lstv.setAdapter(locationAdapter);

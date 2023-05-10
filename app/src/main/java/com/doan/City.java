@@ -10,8 +10,10 @@ import java.io.InputStream;
 
 public class City {
     String maTinh, tenTinh;
-    Bitmap hinhAnh;
+    String hinhAnh;
 
+    public City() {
+    }
 
     public String getMaTinh() {
         return maTinh;
@@ -29,21 +31,21 @@ public class City {
         this.tenTinh = tenTinh;
     }
 
-    public Bitmap getHinhAnh() {
+    public String getHinhAnh() {
         return hinhAnh;
     }
 
-    public void setHinhAnh(Bitmap hinhAnh) {
+    public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
     }
 
-    public City(String maTinh, String tenTinh, Bitmap hinhAnh) {
+    public City(String maTinh, String tenTinh, String hinhAnh) {
         this.maTinh = maTinh;
         this.tenTinh = tenTinh;
         this.hinhAnh = hinhAnh;
     }
 
-    public City(String tenTinh, Bitmap hinhAnh) {
+    public City(String tenTinh, String hinhAnh) {
         this.tenTinh = tenTinh;
         this.hinhAnh = hinhAnh;
     }

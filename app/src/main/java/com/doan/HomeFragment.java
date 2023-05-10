@@ -75,18 +75,23 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
-        @Override
-        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-            lstvCity = (ListView) view.findViewById(R.id.lstvCity);
+        lstvCity = (ListView) view.findViewById(R.id.lstvCity);
+        dbHandler = new DBHandler(getContext());
+        arrayList = dbHandler.getListCity();
 
-    //        arrayList.add(new City("Hồ Chí Minh", City.convertStringToBitmapFromAccess(getContext(), "hcm.png")));
-            dbHandler = new DBHandler(getContext());
-            arrayList = dbHandler.getListCity(getContext());
-
-            cityAdapter = new CityAdapter(getContext(), R.layout.layout_item_city, arrayList);
-            lstvCity.setAdapter(cityAdapter);
-
-        }
+        cityAdapter = new CityAdapter(getContext(), R.layout.layout_item_city, arrayList);
+        lstvCity.setAdapter(cityAdapter);
+        lstvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), LocationActivity.class);
+                intent.putExtra("MaTinh", arrayList.get(i).getMaTinh());
+                startActivity(intent);
+            }
+        });
+    }
 }

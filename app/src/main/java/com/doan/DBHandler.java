@@ -31,45 +31,44 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
-    ArrayList<DiaDiem> getListLop() {
-        mDatabase = this.getWritableDatabase();
-        String[] columns = {""};
-        Cursor c = mDatabase.query("Lop", null, null, null, null, null, null);
-        ArrayList<DiaDiem> a = new ArrayList<>();
-        while (c.moveToNext()) {
-            try {
-                String MaDD = c.getString(0);
-                String TenDD = c.getString(1);
-                String MoTa = c.getString(2);
-                String MaTinh = c.getString(3);
-                String DiaChi = c.getString(4);
-                String HinhAnh = c.getString(5);
-                DiaDiem n = new DiaDiem(MaDD, TenDD, MoTa, MaTinh, DiaChi, HinhAnh);
-                Log.e("out", n.getTenDD());
-                a.add(n);
+//    ArrayList<DiaDiem> getListLop() {
+//        mDatabase = this.getWritableDatabase();
+//        String[] columns = {""};
+//        Cursor c = mDatabase.query("Lop", null, null, null, null, null, null);
+//        ArrayList<DiaDiem> a = new ArrayList<>();
+//        while (c.moveToNext()) {
+//            try {
+//                String MaDD = c.getString(0);
+//                String TenDD = c.getString(1);
+//                String MoTa = c.getString(2);
+//                String MaTinh = c.getString(3);
+//                String DiaChi = c.getString(4);
+//                String HinhAnh = c.getString(5);
+//                DiaDiem n = new DiaDiem(MaDD, TenDD, MoTa, MaTinh, DiaChi, HinhAnh);
+//                Log.e("out", n.getTenDD());
+//                a.add(n);
+//
+//            } catch (Exception e) {
+//
+//            }
+//
+//        }
+//        c.close();
+//        return a;
+//    }
 
-            } catch (Exception e) {
-
-            }
-
-        }
-        c.close();
-        return a;
-    }
-
-    public List<String> getAllLop(String maTinh) {
+    public ArrayList<Location> getListLocation(String maTinh) {
         mDatabase = this.getReadableDatabase();
-        Cursor cursor = mDatabase.rawQuery("SELECT TenDiaDiem, HinhAnh FROM DiaDiem WHERE MaTinh='" + maTinh + "'", null);
-        List<String> list = new ArrayList<>();
-
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE MaTinh='" + maTinh + "'", null);
+        ArrayList<Location> list = new ArrayList<>();
         String chuoiNoi = "";
         if (cursor.moveToFirst()) {
             do {
-                DiaDiem lopModel = new DiaDiem();
-                lopModel.setTenDD(cursor.getString(0));
-                lopModel.setHinhAnh(cursor.getString(1));
-                chuoiNoi = lopModel.getTenDD() + "             " + lopModel.getHinhAnh();
-                list.add(chuoiNoi);
+                Location location = new Location();
+                location.setMaDD(cursor.getString(0));
+                location.setTenDD(cursor.getString(1));
+                location.setHinhAnh(cursor.getString(5));
+                list.add(location);
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -77,15 +76,16 @@ public class DBHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<City> getListCity(Context context) {
+    public ArrayList<City> getListCity() {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM TinhThanh", null);
         ArrayList<City> list = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
                 City citymodel = new City();
-                citymodel.setTenTinh(cursor.getString(0));
-                citymodel.setHinhAnh(City.convertStringToBitmapFromAccess(context, cursor.getString(1)));
+                citymodel.setMaTinh(cursor.getString(0));
+                citymodel.setTenTinh(cursor.getString(1));
+                citymodel.setHinhAnh(cursor.getString(2));
                 list.add(citymodel);
             } while (cursor.moveToNext());
         }
