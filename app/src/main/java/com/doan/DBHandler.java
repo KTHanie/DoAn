@@ -79,7 +79,6 @@ public class DBHandler extends SQLiteOpenHelper {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE MaTinh='" + maTinh + "'", null);
         ArrayList<Location> list = new ArrayList<>();
-        String chuoiNoi = "";
         if (cursor.moveToFirst()) {
             do {
                 Location location = new Location();
@@ -93,6 +92,25 @@ public class DBHandler extends SQLiteOpenHelper {
         mDatabase.close();
         return list;
     }
+
+    public ArrayList<Location> getListLocationByUser() {
+        mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DDYeuThich, DiaDiem WHERE DDYeuThich.MaDD = DiaDiem.MaDD AND DDYeuThich.User = 'user1'", null);
+        ArrayList<Location> list = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Location location = new Location();
+                location.setMaDD(cursor.getString(1));
+                location.setTenDD(cursor.getString(3));
+                location.setHinhAnh(cursor.getString(7));
+                list.add(location);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        mDatabase.close();
+        return list;
+    }
+
 
     public ArrayList<City> getListCity() {
         mDatabase = this.getReadableDatabase();

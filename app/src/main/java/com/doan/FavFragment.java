@@ -18,6 +18,7 @@ public class FavFragment extends Fragment {
     ListView lstv;
     ArrayList<Location> arrayList = new ArrayList<>();
     LocationAdapter locationAdapter;
+    DBHandler dbHandler;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,7 +28,8 @@ public class FavFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         lstv=(ListView) view.findViewById(R.id.favlst);
-        //arrayList.add(new Location("Hồ Chí Minh", Location.convertStringToBitmapFromAccess(getContext(), "hcm.png")));
+        dbHandler = new DBHandler(getContext());
+        arrayList = dbHandler.getListLocationByUser();
         locationAdapter = new LocationAdapter(getContext(), R.layout.layout_item_location, arrayList);
         lstv.setAdapter(locationAdapter);
     }
