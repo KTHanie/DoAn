@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ public class Detail extends AppCompatActivity {
     TextView tvTenDD, tvTinhThanh, tvMoTa, tvDiaChi;
     EditText edtBinhLuan;
     Button btnGui;
+    ImageButton btnBack;
     Location location = new Location();
     DBHandler dbHandler;
     @Override
@@ -34,13 +36,22 @@ public class Detail extends AppCompatActivity {
 
         imgvDD.setImageBitmap(Location.convertStringToBitmapFromAccess(this, location.getHinhAnh()));
         tvTenDD.setText(location.getTenDD());
-        tvTinhThanh.setText(location.getMaTinh());
+        tvTinhThanh.setText(location.getTenTinh());
         tvMoTa.setText(location.getMoTa());
         tvDiaChi.setText(location.getDiaChi());
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Detail.this, LocationActivity.class);
+                intent.putExtra("MaTinh", location.getMaTinh());
+                startActivity(intent);
+            }
+        });
     }
 
     private void addControls()
     {
+        btnBack=(ImageButton) findViewById(R.id.btnBackLocation);
         imgvDD = (ImageView) findViewById(R.id.imgvDD);
         tvTenDD = (TextView) findViewById(R.id.tvTenDD);
         tvTinhThanh = (TextView) findViewById(R.id.tvTinhThanh);

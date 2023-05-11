@@ -11,7 +11,7 @@ import java.io.InputStream;
 import kotlin.text.UStringsKt;
 
 public class Location {
-    String maDD, tenDD, moTa, maTinh, diaChi;
+    String maDD, tenDD, moTa, maTinh, diaChi, tenTinh;
     String hinhAnh;
 
     public String getMaDD() {
@@ -28,6 +28,13 @@ public class Location {
 
     public void setTenDD(String tenDD) {
         this.tenDD = tenDD;
+    }
+    public void setTenTinh(String tenTinh) {
+        this.tenTinh = tenTinh;
+    }
+
+    public String getTenTinh() {
+        return tenTinh;
     }
 
     public String getMoTa() {
@@ -73,13 +80,14 @@ public class Location {
         this.hinhAnh = hinhAnh;
     }
 
-    public Location(String maDD, String tenDD, String moTa, String maTinh, String diaChi, String hinhAnh) {
+    public Location(String maDD, String tenDD, String moTa, String maTinh, String diaChi, String hinhAnh, String tenTinh) {
         this.maDD = maDD;
         this.tenDD = tenDD;
         this.moTa = moTa;
         this.maTinh = maTinh;
         this.diaChi = diaChi;
         this.hinhAnh = hinhAnh;
+        this.tenTinh=tenTinh;
     }
 
     public Location() {

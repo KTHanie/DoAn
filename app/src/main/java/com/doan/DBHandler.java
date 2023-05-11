@@ -66,9 +66,10 @@ public class DBHandler extends SQLiteOpenHelper {
             location.setMaDD(cursor.getString(0));
             location.setTenDD(cursor.getString(1));
             location.setMoTa(cursor.getString(2));
-            location.setMaTinh(cursor.getString(9));
+            location.setMaTinh(cursor.getString(3));
             location.setDiaChi(cursor.getString(4));
             location.setHinhAnh(cursor.getString(5));
+            location.setTenTinh(cursor.getString(9));
         }
         cursor.close();
         mDatabase.close();
