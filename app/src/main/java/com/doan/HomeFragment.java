@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +82,6 @@ public class HomeFragment extends Fragment {
         lstvCity = (ListView) view.findViewById(R.id.lstvCity);
         dbHandler = new DBHandler(getContext());
         arrayList = dbHandler.getListCity();
-
         cityAdapter = new CityAdapter(getContext(), R.layout.layout_item_city, arrayList);
         lstvCity.setAdapter(cityAdapter);
         lstvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {

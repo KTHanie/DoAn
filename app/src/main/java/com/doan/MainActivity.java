@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         f= new HomeFragment();
         loadFragment(f);
 
+
         imgbtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,17 +63,17 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
-                    toolbar.setTitle("Profile");
+                    getSupportActionBar().hide();
                     f= new Fragment_Pro();
                     loadFragment(f);
                     return true;
                 case R.id.navigation_home:
-                    toolbar.setTitle("Profile");
+                    getSupportActionBar().show();
                     f= new HomeFragment();
                     loadFragment(f);
                     return true;
                 case R.id.navigation_dashboard:
-                    toolbar.setTitle("Fav");
+                    getSupportActionBar().show();
                     f= new FavFragment();
                     loadFragment(f);
                     return true;
