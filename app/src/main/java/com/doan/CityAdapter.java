@@ -35,7 +35,6 @@ public class CityAdapter extends ArrayAdapter {
         imgv.setImageBitmap(City.convertStringToBitmapFromAccess(context, item.getHinhAnh()));
         TextView nameProduct = (TextView) convertView.findViewById(R.id.txtCity);
         nameProduct.setText(item.getTenTinh());
-
         return convertView;
     }
 }
