@@ -39,6 +39,7 @@
                 android:backgroundTint="@color/white"
                 android:cursorVisible="true"
                 android:hint="Search"
+                android:inputType="text"
                 android:padding="8dp"
                 android:paddingLeft="15dp" />
 
