@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
         f= new HomeFragment();
         loadFragment(f);
 
-        String str_search = edtSearch.getText().toString();
-
         imgbtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
