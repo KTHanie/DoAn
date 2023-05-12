@@ -31,6 +31,7 @@ public class DBHandler extends SQLiteOpenHelper {
         context.openOrCreateDatabase(DB_NAME, context.MODE_PRIVATE, null);
         //  Log.d("Database Operations", "Database được tạo hoặc mở");
     }
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //   mDatabase=this.getWritableDatabase();
@@ -48,6 +49,7 @@ public class DBHandler extends SQLiteOpenHelper {
         // Create tables again
         onCreate(sqLiteDatabase);
     }
+
     public boolean addUser(String user, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -72,7 +74,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return userList;
     }
 
-//    public boolean checkUser(String user, String password) {
+    //    public boolean checkUser(String user, String password) {
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        String[] projection = {COLUMN_USER};
 //        String selection = COLUMN_USER + " = ? AND " + COLUMN_PASSWORD + " = ?";
@@ -90,29 +92,26 @@ public class DBHandler extends SQLiteOpenHelper {
 //        cursor.close();
 //        return count > 0;
 //    }
-    public boolean checkUser(String user, String password)
-    {
+    public boolean checkUser(String user, String password) {
         mDatabase = this.getReadableDatabase();
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM TaiKhoan WHERE User='" + user + "' and Password= '"+password+"'", null);
-       String u=null;
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM TaiKhoan WHERE User='" + user + "' and Password= '" + password + "'", null);
+        String u = null;
         if (cursor.moveToFirst()) {
-           if(cursor.getString(0).isEmpty())
-           {
-               cursor.close();
+            if (cursor.getString(0).isEmpty()) {
+                cursor.close();
                 mDatabase.close();
                 return false;
-            }
-           else
-           {
-            cursor.close();
-            mDatabase.close();
-            return true;
+            } else {
+                cursor.close();
+                mDatabase.close();
+                return true;
             }
         }
         cursor.close();
         mDatabase.close();
         return false;
     }
+
     public void debugDatabase() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TAIKHOAN, null);
@@ -124,7 +123,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-//    ArrayList<DiaDiem> getListLop() {
+    //    ArrayList<DiaDiem> getListLop() {
 //        mDatabase = this.getWritableDatabase();
 //        String[] columns = {""};
 //        Cursor c = mDatabase.query("Lop", null, null, null, null, null, null);
@@ -152,9 +151,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public Location getLocation(String maDD) {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT *, TenTinh FROM DiaDiem, TinhThanh WHERE MaDD='" + maDD + "' and DiaDiem.MaTinh = TinhThanh.MaTinh", null);
-
         Location location = new Location();
-
         if (cursor.moveToFirst()) {
             location.setMaDD(cursor.getString(0));
             location.setTenDD(cursor.getString(1));
@@ -168,6 +165,7 @@ public class DBHandler extends SQLiteOpenHelper {
         mDatabase.close();
         return location;
     }
+
     public ArrayList<Location> getListLocation(String maTinh) {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE MaTinh='" + maTinh + "'", null);
@@ -188,7 +186,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public ArrayList<Location> getListLocationByUser(String user) {
         mDatabase = this.getReadableDatabase();
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DDYeuThich, DiaDiem WHERE DDYeuThich.MaDD = DiaDiem.MaDD AND DDYeuThich.User = '"+user+"'", null);
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DDYeuThich, DiaDiem WHERE DDYeuThich.MaDD = DiaDiem.MaDD AND DDYeuThich.User = '" + user + "'", null);
         ArrayList<Location> list = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -240,6 +238,53 @@ public class DBHandler extends SQLiteOpenHelper {
         mDatabase.close();
         return list;
     }
+
+    public int deleteFavList(String user, String maDD) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = "User = ? AND MaDD = ?";
+        String[] selectionArgs = {user, maDD};
+        int rowsDeleted = db.delete("DDYeuThich", selection, selectionArgs);
+//        db.close();
+        if (rowsDeleted == 1) {
+            return 1; // xóa thành công
+        } else {
+            return 0; // không có dòng nào bị xóa
+        }
+    }
+
+    public int addFavList(String user, String maDD) {
+        mDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("User", user);
+        contentValues.put("MaDD", maDD);
+        int check = 0;
+        if (checkFavList(user, maDD) == true) {
+            mDatabase.insert("DDYeuThich", null, contentValues);
+            check = 1;
+        } else
+            check = -1;
+        return check;
+    }
+
+    public boolean checkFavList(String user, String maDiaDiem) {
+        mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DDYeuThich WHERE User='" + user + "' and MaDD= '" + maDiaDiem + "'", null);
+        String u = null;
+        if (cursor.moveToFirst()) {
+            if (cursor.getString(0).isEmpty()) {
+                cursor.close();
+//                mDatabase.close();
+                return false;
+            }
+        } else {
+            cursor.close();
+//            mDatabase.close();
+            return true;
+        }
+        return false;
+    }
+
+
 //
 //    public int insert(Lop l) {
 //        mDatabase = this.getWritableDatabase();
