@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Fragment_Pro extends Fragment {
-    TextView a,b,c;
+    TextView a,b,c,user;
     Fragment f;
     @Nullable
     @Override
@@ -30,7 +30,29 @@ public class Fragment_Pro extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         a=(TextView) view.findViewById(R.id.txtHome);
         b=(TextView) view.findViewById(R.id.txtFav);
+        user=(TextView) view.findViewById(R.id.tvUser);
         c=(TextView) view.findViewById(R.id.txtlogout);
+        user.setText(User.userName);
+        if(User.userName.isEmpty())
+        {
+            c.setText("Login");
+        }
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(User.userName.isEmpty())
+                {
+                    Intent intent = new Intent(getActivity(), Login.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    User.userName="";
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

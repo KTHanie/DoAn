@@ -1,6 +1,7 @@
 package com.doan;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,19 +18,111 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
 
+    // login and register
+    private static final String TAG = DBHandler.class.getSimpleName();
+
+    private static final String TABLE_TAIKHOAN = "TaiKhoan";
+    private static final String COLUMN_USER = "User";
+    private static final String COLUMN_PASSWORD = "Password";
+    /////////////////////////////////////////////////////////////////////////////////
+
     public DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         context.openOrCreateDatabase(DB_NAME, context.MODE_PRIVATE, null);
         //  Log.d("Database Operations", "Database được tạo hoặc mở");
     }
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //   mDatabase=this.getWritableDatabase();
+        // login and register
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_TAIKHOAN + "("
+                + COLUMN_USER + " TEXT PRIMARY KEY,"
+                + COLUMN_PASSWORD + " TEXT NOT NULL)";
+        sqLiteDatabase.execSQL(createTableQuery);
     }
 
+    @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        // Drop older table if existed
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TAIKHOAN);
+        // Create tables again
+        onCreate(sqLiteDatabase);
     }
+    public boolean addUser(String user, String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER, user);
+        values.put(COLUMN_PASSWORD, password);
+        long result = db.insert(TABLE_TAIKHOAN, null, values);
+        return result != -1;
+    }
+
+    public List<String> getAllUsers() {
+        List<String> userList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_TAIKHOAN;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String user = cursor.getString(cursor.getColumnIndex(COLUMN_USER));
+                userList.add(user);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return userList;
+    }
+
+//    public boolean checkUser(String user, String password) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String[] projection = {COLUMN_USER};
+//        String selection = COLUMN_USER + " = ? AND " + COLUMN_PASSWORD + " = ?";
+//        String[] selectionArgs = {user, password};
+//        Cursor cursor = db.query(
+//                TABLE_TAIKHOAN,   // The table to query
+//                projection,       // The array of columns to return (pass null to get all)
+//                selection,        // The columns for the WHERE clause
+//                selectionArgs,    // The values for the WHERE clause
+//                null,             // don't group the rows
+//                null,             // don't filter by row groups
+//                null              // don't sort the rows
+//        );
+//        int count = cursor.getCount();
+//        cursor.close();
+//        return count > 0;
+//    }
+    public boolean checkUser(String user, String password)
+    {
+        mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM TaiKhoan WHERE User='" + user + "' and Password= '"+password+"'", null);
+       String u=null;
+        if (cursor.moveToFirst()) {
+           if(cursor.getString(0).isEmpty())
+           {
+               cursor.close();
+                mDatabase.close();
+                return false;
+            }
+           else
+           {
+            cursor.close();
+            mDatabase.close();
+            return true;
+            }
+        }
+        cursor.close();
+        mDatabase.close();
+        return false;
+    }
+    public void debugDatabase() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_TAIKHOAN, null);
+        String[] columnNames = cursor.getColumnNames();
+        for (String name : columnNames) {
+            Log.d(TAG, "Column name: " + name);
+        }
+        cursor.close();
+    }
+
 
 //    ArrayList<DiaDiem> getListLop() {
 //        mDatabase = this.getWritableDatabase();
@@ -93,9 +186,9 @@ public class DBHandler extends SQLiteOpenHelper {
         return list;
     }
 
-    public ArrayList<Location> getListLocationByUser() {
+    public ArrayList<Location> getListLocationByUser(String user) {
         mDatabase = this.getReadableDatabase();
-        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DDYeuThich, DiaDiem WHERE DDYeuThich.MaDD = DiaDiem.MaDD AND DDYeuThich.User = 'user1'", null);
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DDYeuThich, DiaDiem WHERE DDYeuThich.MaDD = DiaDiem.MaDD AND DDYeuThich.User = '"+user+"'", null);
         ArrayList<Location> list = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {

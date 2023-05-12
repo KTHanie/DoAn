@@ -29,7 +29,7 @@ public class FavFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         lstv=(ListView) view.findViewById(R.id.favlst);
         dbHandler = new DBHandler(getContext());
-        arrayList = dbHandler.getListLocationByUser();
+        arrayList = dbHandler.getListLocationByUser(User.userName);
         locationAdapter = new LocationAdapter(getContext(), R.layout.layout_item_location, arrayList);
         lstv.setAdapter(locationAdapter);
     }

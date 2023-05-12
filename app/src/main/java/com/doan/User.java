@@ -1,5 +1,5 @@
 package com.doan;
 
 public class User {
-    public static String userName = "user1";
+    public static String userName="";
 }
