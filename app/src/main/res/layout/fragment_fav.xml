@@ -27,6 +27,7 @@
         android:orientation="vertical"></LinearLayout>
 
     <ListView
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="80dp"
         android:id="@+id/favlst"
         android:layout_width="match_parent"

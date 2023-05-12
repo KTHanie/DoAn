@@ -1,5 +1,6 @@
 package com.doan;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -32,5 +34,14 @@ public class FavFragment extends Fragment {
         arrayList = dbHandler.getListLocationByUser(User.userName);
         locationAdapter = new LocationAdapter(getContext(), R.layout.layout_item_location, arrayList);
         lstv.setAdapter(locationAdapter);
+        lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Toast.makeText(LocationActivity.this, arrayList.get(i).getMaDD(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), Detail.class);
+                intent.putExtra("MaDD", arrayList.get(i).getMaDD());
+                startActivity(intent);
+            }
+        });
     }
 }
