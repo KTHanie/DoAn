@@ -222,6 +222,24 @@ public class DBHandler extends SQLiteOpenHelper {
         mDatabase.close();
         return list;
     }
+
+    public ArrayList<Location> getListLocation_Search(String str_search) {
+        mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE TenDiaDiem LIKE '%" + str_search + "%'", null);
+        ArrayList<Location> list = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Location location = new Location();
+                location.setMaDD(cursor.getString(0));
+                location.setTenDD(cursor.getString(1));
+                location.setHinhAnh(cursor.getString(5));
+                list.add(location);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        mDatabase.close();
+        return list;
+    }
 //
 //    public int insert(Lop l) {
 //        mDatabase = this.getWritableDatabase();

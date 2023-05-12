@@ -9,29 +9,54 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private DrawerLayout drawerLayout;
     Fragment f;
     Toolbar toolbar;
+    ImageButton imgbtnSearch;
+    EditText edtSearch;
 
-    RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar); //Ignorered line errors
+
+        addContronls();
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         f= new HomeFragment();
         loadFragment(f);
+
+        String str_search = String.valueOf(edtSearch.getText());
+
+        imgbtnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(str_search == null)
+                    Toast.makeText(MainActivity.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(MainActivity.this, str_search, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+                    intent.putExtra("TextSearch", str_search);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
     }
     private BottomNavigationView.OnNavigationItemSelectedListener
             mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,15 +89,12 @@ public class MainActivity extends AppCompatActivity {
         tra.addToBackStack(null);
         tra.commit();
     }
-    @Override
-    public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START))
-        {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
-            super.onBackPressed();
-        }
 
+    void addContronls()
+    {
+        toolbar = findViewById(R.id.toolbar);
+        edtSearch = (EditText) findViewById(R.id.edtSearch);
+        imgbtnSearch = (ImageButton) findViewById(R.id.imgbtnSearch);
     }
+
 }
