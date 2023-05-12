@@ -40,7 +40,7 @@ public class CommentAdapter extends ArrayAdapter {
         TextView thoiGian = (TextView) convertView.findViewById(R.id.tvThoiGian);
         user.setText(item.getUser());
         cmt.setText(item.getCmt());
-        thoiGian.setText(item.getThoiGian().toString());
+        thoiGian.setText(item.getTg());
         return convertView;
     }
 }

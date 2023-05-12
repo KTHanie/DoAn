@@ -15,6 +15,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class Detail extends AppCompatActivity {
     ListView lstvDanhGia;
     ImageView imgvDD;
@@ -23,6 +29,8 @@ public class Detail extends AppCompatActivity {
     Button btnGui;
     ImageButton btnBack, btnlike;
     Location location = new Location();
+    ArrayList<Comment> commentArrayList = new ArrayList<>();
+    CommentAdapter commentAdapter;
     DBHandler dbHandler;
 
     @Override
@@ -45,11 +53,15 @@ public class Detail extends AppCompatActivity {
         {
             btnlike.setColorFilter(null);
         }
+
+        //Đỗ dữ liệu
         imgvDD.setImageBitmap(Location.convertStringToBitmapFromAccess(this, location.getHinhAnh()));
         tvTenDD.setText(location.getTenDD());
         tvTinhThanh.setText(location.getTenTinh());
         tvMoTa.setText(location.getMoTa());
         tvDiaChi.setText(location.getDiaChi());
+
+        //Quay về trang trước
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,10 +70,11 @@ public class Detail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //Xử lý yêu thích
         btnlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (btnlike.getColorFilter() == null) {
                     if (dbHandler.addFavList(User.userName, location.getMaDD()) == 1) {
                         Toast.makeText(Detail.this, "Đã thêm địa điểm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
@@ -81,8 +94,47 @@ public class Detail extends AppCompatActivity {
                 }
             }
         });
+
+        //Load dữ liệu bình luận
+        commentArrayList = dbHandler.getListComment(maDD);
+        commentAdapter = new CommentAdapter(this, R.layout.lv_layout, commentArrayList);
+        lstvDanhGia.setAdapter(commentAdapter);
+
+        //Xử lý thêm bình luận
+        String str_binhLuan = edtBinhLuan.getText().toString();
+        btnGui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtBinhLuan.getText().toString().isEmpty())
+                    Toast.makeText(Detail.this, "Bạn chưa nhập bình luận", Toast.LENGTH_SHORT).show();
+                else
+                {
+                    Toast.makeText(Detail.this, edtBinhLuan.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    String tg = format.format(date);
+                    if (dbHandler.addCommentList(User.userName, location.getMaDD(), tg, edtBinhLuan.getText().toString()) == 1) {
+                        Toast.makeText(Detail.this, "Gửi thành công", Toast.LENGTH_SHORT).show();
+
+                        commentArrayList = dbHandler.getListComment(maDD);
+                        commentAdapter = new CommentAdapter(Detail.this, R.layout.lv_layout, commentArrayList);
+                        lstvDanhGia.setAdapter(commentAdapter);
+
+                        edtBinhLuan.setText("");
+                    } else {
+                        Toast.makeText(Detail.this, "Gửi thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
     }
 
+    private void loadListCmt()
+    {
+
+    }
     private void addControls() {
         btnBack = (ImageButton) findViewById(R.id.btnBackLocation);
         imgvDD = (ImageView) findViewById(R.id.imgvDD);

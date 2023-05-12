@@ -8,8 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.text.DateFormat;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DBHandler extends SQLiteOpenHelper {
     private SQLiteDatabase mDatabase;
@@ -151,7 +158,9 @@ public class DBHandler extends SQLiteOpenHelper {
     public Location getLocation(String maDD) {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT *, TenTinh FROM DiaDiem, TinhThanh WHERE MaDD='" + maDD + "' and DiaDiem.MaTinh = TinhThanh.MaTinh", null);
+
         Location location = new Location();
+
         if (cursor.moveToFirst()) {
             location.setMaDD(cursor.getString(0));
             location.setTenDD(cursor.getString(1));
@@ -282,6 +291,53 @@ public class DBHandler extends SQLiteOpenHelper {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Comment> getListComment(String maDD) {
+        mDatabase = this.getReadableDatabase();
+        Cursor cursor = mDatabase.rawQuery("SELECT * FROM BinhLuan WHERE MaDD = '" + maDD + "'", null);
+        ArrayList<Comment> list = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                Comment comment = new Comment();
+                comment.setUser(cursor.getString(0));
+                comment.setMaDD(cursor.getString(1));
+                comment.setTg(cursor.getString(2));
+//                String dateString = cursor.getString(2);
+//                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+//                Date date = null;
+//                try {
+//                    date = format.parse(dateString);
+//                } catch (ParseException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                comment.setThoiGian(date);
+                comment.setCmt(cursor.getString(3));
+                list.add(comment);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        mDatabase.close();
+        return list;
+    }
+
+    public int addCommentList(String user, String maDD, String tg, String cmt) {
+        mDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("User", user);
+        contentValues.put("MaDD", maDD);
+        contentValues.put("ThoiGian", tg);
+        contentValues.put("CMT", cmt);
+        int check = 0;
+        try {
+            mDatabase.insert("BinhLuan", null, contentValues);
+            check = 1;
+        }
+        catch (Exception e)
+        {
+            check = 0;
+        }
+        return check;
     }
 
 

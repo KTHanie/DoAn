@@ -5,6 +5,24 @@ import java.util.Date;
 public class Comment {
     String user;
     String maDD;
+    String tg;
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTg() {
+        return tg;
+    }
+
+    public void setTg(String tg) {
+        this.tg = tg;
+    }
 
     public Date getThoiGian() {
         return thoiGian;
@@ -44,7 +62,20 @@ public class Comment {
         this.cmt = cmt;
     }
 
+    public Comment(String user, String maDD, String tg, int id, String cmt) {
+        this.user = user;
+        this.maDD = maDD;
+        this.tg = tg;
+        this.id = id;
+        this.cmt = cmt;
+    }
 
+    public Comment(String user, String maDD, String tg, String cmt) {
+        this.user = user;
+        this.maDD = maDD;
+        this.tg = tg;
+        this.cmt = cmt;
+    }
 
     public Comment(String user, String maDD, Date thoiGian, String cmt) {
         this.user = user;
