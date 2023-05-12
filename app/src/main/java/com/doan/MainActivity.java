@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(f);
                     return true;
                 case R.id.navigation_dashboard:
-                    getSupportActionBar().show();
+                    getSupportActionBar().hide();
                     f= new FavFragment();
                     loadFragment(f);
                     return true;

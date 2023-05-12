@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Fragment_Pro extends Fragment {
-    TextView a,b,c,user;
+    TextView c,user;
     Fragment f;
     @Nullable
     @Override
@@ -28,8 +28,6 @@ public class Fragment_Pro extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        a=(TextView) view.findViewById(R.id.txtHome);
-        b=(TextView) view.findViewById(R.id.txtFav);
         user=(TextView) view.findViewById(R.id.tvUser);
         c=(TextView) view.findViewById(R.id.txtlogout);
         user.setText(User.userName);
@@ -53,21 +51,7 @@ public class Fragment_Pro extends Fragment {
                 }
             }
         });
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                f= new FavFragment();
-
-                loadFragment(f);
-            }
-        });
-       a.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               f= new HomeFragment();
-               loadFragment(f);
-           }
-       });
+      
     }
 
     private void loadFragment(Fragment k)
