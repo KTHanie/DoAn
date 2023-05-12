@@ -40,17 +40,15 @@ public class MainActivity extends AppCompatActivity {
         f= new HomeFragment();
         loadFragment(f);
 
-        String str_search = String.valueOf(edtSearch.getText());
-
         imgbtnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(str_search == null)
+                if(edtSearch.getText().toString().isEmpty() )
                     Toast.makeText(MainActivity.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
                 else {
-                    Toast.makeText(MainActivity.this, str_search, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, edtSearch.getText(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, LocationActivity.class);
-                    intent.putExtra("TextSearch", str_search);
+                    intent.putExtra("TextSearch", edtSearch.getText());
                     startActivity(intent);
                 }
             }
