@@ -40,19 +40,9 @@ public class LocationActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         String maTinh = intent.getStringExtra("MaTinh");
-        String str_search = intent.getStringExtra("TextSearch");
 
         dbHandler = new DBHandler(this);
-
-        if(maTinh != "") {
-            arrayList = dbHandler.getListLocation(maTinh);
-        }
-        else {
-            if(str_search != "")
-            {
-                arrayList = dbHandler.getListLocation_Search(str_search);
-            }
-        }
+        arrayList = dbHandler.getListLocation(maTinh);
 
         locationAdapter = new LocationAdapter(this, R.layout.layout_item_location, arrayList);
         lstv.setAdapter(locationAdapter);

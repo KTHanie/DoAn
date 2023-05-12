@@ -37,7 +37,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/white"
-                android:cursorVisible="false"
+                android:cursorVisible="true"
                 android:hint="Search"
                 android:padding="8dp"
                 android:paddingLeft="15dp" />
@@ -49,8 +49,6 @@
                 android:background="#03FFFFFF"
                 app:srcCompat="@drawable/ic_search_black" />
         </androidx.appcompat.widget.Toolbar>
-
-
 
     </LinearLayout>
 
