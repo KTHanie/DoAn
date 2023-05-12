@@ -75,6 +75,11 @@ public class Detail extends AppCompatActivity {
         btnlike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(User.userName.isEmpty())
+                {
+                    Toast.makeText(Detail.this, "Bạn cần phải đăng nhập", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (btnlike.getColorFilter() == null) {
                     if (dbHandler.addFavList(User.userName, location.getMaDD()) == 1) {
                         Toast.makeText(Detail.this, "Đã thêm địa điểm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
@@ -105,6 +110,11 @@ public class Detail extends AppCompatActivity {
         btnGui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(User.userName.isEmpty())
+                {
+                    Toast.makeText(Detail.this, "Bạn cần phải đăng nhập", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(edtBinhLuan.getText().toString().isEmpty())
                     Toast.makeText(Detail.this, "Bạn chưa nhập bình luận", Toast.LENGTH_SHORT).show();
                 else
