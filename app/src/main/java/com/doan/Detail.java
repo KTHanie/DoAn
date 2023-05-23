@@ -153,8 +153,8 @@ public class Detail extends AppCompatActivity {
     }
     private void confirmDelete(int position) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Bạn có chắc muốn xóa không?");
-        alertDialog.setIcon(R.mipmap.ic_launcher);
+        alertDialog.setMessage("Bạn có chắc muốn xóa bình luận không?");
+        alertDialog.setIcon(R.mipmap.icon);
         alertDialog.setTitle("Thông báo!");
         alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
