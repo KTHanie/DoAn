@@ -181,10 +181,6 @@ public class Detail extends AppCompatActivity {
         });
         alertDialog.show();
     }
-    private void loadListCmt()
-    {
-
-    }
     private void addControls() {
         btnBack = (ImageButton) findViewById(R.id.btnBackLocation);
         imgvDD = (ImageView) findViewById(R.id.imgvDD);
