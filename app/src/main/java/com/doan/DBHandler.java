@@ -66,20 +66,20 @@ public class DBHandler extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public List<String> getAllUsers() {
-        List<String> userList = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_TAIKHOAN;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                String user = cursor.getString(cursor.getColumnIndex(COLUMN_USER));
-                userList.add(user);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return userList;
-    }
+//    public List<String> getAllUsers() {
+//        List<String> userList = new ArrayList<>();
+//        String selectQuery = "SELECT * FROM " + TABLE_TAIKHOAN;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//        if (cursor.moveToFirst()) {
+//            do {
+//                String user = cursor.getString(cursor.getColumnIndex(COLUMN_USER));
+//                userList.add(user);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return userList;
+//    }
 
     //    public boolean checkUser(String user, String password) {
 //        SQLiteDatabase db = this.getReadableDatabase();
@@ -260,7 +260,18 @@ public class DBHandler extends SQLiteOpenHelper {
             return 0; // không có dòng nào bị xóa
         }
     }
-
+    public int deleteCMT(String user,int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String selection = "User = ? AND ID = ?";
+        String[] selectionArgs = {user, String.valueOf(id)};
+        int rowsDeleted = db.delete("BinhLuan", selection, selectionArgs);
+//        db.close();
+        if (rowsDeleted == 1) {
+            return 1; // xóa thành công
+        } else {
+            return 0; // không có dòng nào bị xóa
+        }
+    }
     public int addFavList(String user, String maDD) {
         mDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -303,6 +314,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 comment.setUser(cursor.getString(0));
                 comment.setMaDD(cursor.getString(1));
                 comment.setTg(cursor.getString(2));
+                comment.setId(cursor.getInt(4));
+
 //                String dateString = cursor.getString(2);
 //                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 //                Date date = null;

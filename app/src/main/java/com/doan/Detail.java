@@ -2,11 +2,14 @@ package com.doan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -54,7 +57,7 @@ public class Detail extends AppCompatActivity {
             btnlike.setColorFilter(null);
         }
 
-        //Đỗ dữ liệu
+        //Đổ dữ liệu
         imgvDD.setImageBitmap(Location.convertStringToBitmapFromAccess(this, location.getHinhAnh()));
         tvTenDD.setText(location.getTenDD());
         tvTinhThanh.setText(location.getTenTinh());
@@ -100,6 +103,7 @@ public class Detail extends AppCompatActivity {
             }
         });
 
+
         //Load dữ liệu bình luận
         commentArrayList = dbHandler.getListComment(maDD);
         commentAdapter = new CommentAdapter(this, R.layout.lv_layout, commentArrayList);
@@ -138,9 +142,46 @@ public class Detail extends AppCompatActivity {
                 }
             }
         });
-
+        lstvDanhGia.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Comment c = commentArrayList.get(i);
+                confirmDelete(c.getId());
+                return false;
+            }
+        });
     }
+    private void confirmDelete(int position) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Bạn có chắc muốn xóa không?");
+        alertDialog.setIcon(R.mipmap.ic_launcher);
+        alertDialog.setTitle("Thông báo!");
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int kt= dbHandler.deleteCMT(User.userName,position);
+                if(kt== 1)
+                {
+                    Toast.makeText(Detail.this, "Xoá bình luận thành công", Toast.LENGTH_SHORT).show();
+                    commentArrayList = dbHandler.getListComment(location.maDD);
+                    commentAdapter = new CommentAdapter(Detail.this, R.layout.lv_layout, commentArrayList);
+                    lstvDanhGia.setAdapter(commentAdapter);
+                }
+                else
+                   if(User.userName =="")
+                       Toast.makeText(Detail.this, "Đăng nhập để xoá bình luận", Toast.LENGTH_SHORT).show();
+                   else
+                       Toast.makeText(Detail.this, "Không thể xoá bình luận của người khác", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        alertDialog.show();
+    }
     private void loadListCmt()
     {
 
