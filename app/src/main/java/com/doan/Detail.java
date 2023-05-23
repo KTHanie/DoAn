@@ -177,7 +177,6 @@ public class Detail extends AppCompatActivity {
         alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         alertDialog.show();
