@@ -130,7 +130,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    //    ArrayList<DiaDiem> getListLop() {
+//    ArrayList<DiaDiem> getListLop() {
 //        mDatabase = this.getWritableDatabase();
 //        String[] columns = {""};
 //        Cursor c = mDatabase.query("Lop", null, null, null, null, null, null);

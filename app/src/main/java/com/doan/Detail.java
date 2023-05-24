@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -56,6 +57,12 @@ public class Detail extends AppCompatActivity {
         {
             btnlike.setColorFilter(null);
         }
+        //kiểm tra địa điểm đã có trong danh sách yêu thích của user hiện tại chưa-> có thì cho tim màu đỏ
+        if (dbHandler.checkFavList(User.userName, location.getMaDD()) == false) {
+            btnlike.setColorFilter(Color.RED);
+        } else {
+            btnlike.setColorFilter(null);
+        }
 
         //Đổ dữ liệu
         imgvDD.setImageBitmap(Location.convertStringToBitmapFromAccess(this, location.getHinhAnh()));
@@ -73,6 +80,61 @@ public class Detail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //Xử lý yêu thích
+        btnlike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (User.userName.isEmpty()) {
+                    Toast.makeText(Detail.this, "Bạn cần phải đăng nhập", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (btnlike.getColorFilter() == null) {
+                    if (dbHandler.addFavList(User.userName, location.getMaDD()) == 1) {
+                        Toast.makeText(Detail.this, "Đã thêm địa điểm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Detail.this, "Địa điểm đã có trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                    }
+                    // ImageButton hiện đang có màu mặc định là màu trắng
+                    btnlike.setColorFilter(Color.RED); // đổi màu thành đỏ
+                } else {
+                    if (dbHandler.deleteFavList(User.userName, location.getMaDD()) == 1) {
+                        Toast.makeText(Detail.this, "Xóa địa điểm khỏi danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Detail.this, "Xóa địa điểm thất bại !", Toast.LENGTH_SHORT).show();
+                    }
+                    // ImageButton hiện đang có màu filter khác màu trắng
+                    btnlike.setColorFilter(null); // đổi màu về mặc định
+                }
+            }
+        });
+
+
+        //Load dữ liệu bình luận
+        commentArrayList = dbHandler.getListComment(maDD);
+        commentAdapter = new CommentAdapter(this, R.layout.lv_layout, commentArrayList);
+        lstvDanhGia.setAdapter(commentAdapter);
+
+        //Xử lý thêm bình luận
+        String str_binhLuan = edtBinhLuan.getText().toString();
+        btnGui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (User.userName.isEmpty()) {
+                    Toast.makeText(Detail.this, "Bạn cần phải đăng nhập", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (edtBinhLuan.getText().toString().isEmpty())
+                    Toast.makeText(Detail.this, "Bạn chưa nhập bình luận", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(Detail.this, edtBinhLuan.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Calendar calendar = Calendar.getInstance();
+                    Date date = calendar.getTime();
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    String tg = format.format(date);
+                    if (dbHandler.addCommentList(User.userName, location.getMaDD(), tg, edtBinhLuan.getText().toString()) == 1) {
+                        Toast.makeText(Detail.this, "Gửi thành công", Toast.LENGTH_SHORT).show();
+    }
 
         //Xử lý yêu thích
         btnlike.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +245,62 @@ public class Detail extends AppCompatActivity {
     }
     private void addControls() {
         btnBack = (ImageButton) findViewById(R.id.btnBackLocation);
+    private void addControls()
+    {
+        btnBack=(ImageButton) findViewById(R.id.btnBackLocation);
+                        commentArrayList = dbHandler.getListComment(maDD);
+                        commentAdapter = new CommentAdapter(Detail.this, R.layout.lv_layout, commentArrayList);
+                        lstvDanhGia.setAdapter(commentAdapter);
+
+                        edtBinhLuan.setText("");
+                    } else {
+                        Toast.makeText(Detail.this, "Gửi thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        lstvDanhGia.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Comment c = commentArrayList.get(i);
+                confirmDelete(c.getId());
+                return false;
+            }
+        });
+    }
+    private void confirmDelete(int position) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Bạn có chắc muốn xóa bình luận không?");
+        alertDialog.setIcon(R.mipmap.icon);
+        alertDialog.setTitle("Thông báo!");
+        alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int kt= dbHandler.deleteCMT(User.userName,position);
+                if(kt== 1)
+                {
+                    Toast.makeText(Detail.this, "Xoá bình luận thành công", Toast.LENGTH_SHORT).show();
+                    commentArrayList = dbHandler.getListComment(location.maDD);
+                    commentAdapter = new CommentAdapter(Detail.this, R.layout.lv_layout, commentArrayList);
+                    lstvDanhGia.setAdapter(commentAdapter);
+                }
+                else
+                   if(User.userName =="")
+                       Toast.makeText(Detail.this, "Đăng nhập để xoá bình luận", Toast.LENGTH_SHORT).show();
+                   else
+                       Toast.makeText(Detail.this, "Không thể xoá bình luận của người khác", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void addControls() {
+        btnBack = (ImageButton) findViewById(R.id.btnBackLocation);
         imgvDD = (ImageView) findViewById(R.id.imgvDD);
         tvTenDD = (TextView) findViewById(R.id.tvTenDD);
         tvTinhThanh = (TextView) findViewById(R.id.tvTinhThanh);
@@ -193,4 +311,6 @@ public class Detail extends AppCompatActivity {
         edtBinhLuan = (EditText) findViewById(R.id.edtBinhLuan);
         btnlike = (ImageButton) findViewById(R.id.btnlike);
     }
+
+
 }
