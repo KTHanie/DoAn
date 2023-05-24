@@ -129,32 +129,6 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
     }
 
-
-//    ArrayList<DiaDiem> getListLop() {
-//        mDatabase = this.getWritableDatabase();
-//        String[] columns = {""};
-//        Cursor c = mDatabase.query("Lop", null, null, null, null, null, null);
-//        ArrayList<DiaDiem> a = new ArrayList<>();
-//        while (c.moveToNext()) {
-//            try {
-//                String MaDD = c.getString(0);
-//                String TenDD = c.getString(1);
-//                String MoTa = c.getString(2);
-//                String MaTinh = c.getString(3);
-//                String DiaChi = c.getString(4);
-//                String HinhAnh = c.getString(5);
-//                DiaDiem n = new DiaDiem(MaDD, TenDD, MoTa, MaTinh, DiaChi, HinhAnh);
-//                Log.e("out", n.getTenDD());
-//                a.add(n);
-//
-//            } catch (Exception e) {
-//
-//            }
-//
-//        }
-//        c.close();
-//        return a;
-//    }
     public Location getLocation(String maDD) {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT *, TenTinh FROM DiaDiem, TinhThanh WHERE MaDD='" + maDD + "' and DiaDiem.MaTinh = TinhThanh.MaTinh", null);
@@ -175,7 +149,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return location;
     }
 
-    public ArrayList<Location> getListLocation(String maTinh) {
+    public ArrayList<Location> getListLocation(String maTinh) {//get list location bằng mã tỉnh
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE MaTinh='" + maTinh + "'", null);
         ArrayList<Location> list = new ArrayList<>();
@@ -293,12 +267,10 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             if (cursor.getString(0).isEmpty()) {
                 cursor.close();
-//                mDatabase.close();
                 return false;
             }
         } else {
             cursor.close();
-//            mDatabase.close();
             return true;
         }
         return false;
@@ -315,16 +287,6 @@ public class DBHandler extends SQLiteOpenHelper {
                 comment.setMaDD(cursor.getString(1));
                 comment.setTg(cursor.getString(2));
                 comment.setId(cursor.getInt(4));
-
-//                String dateString = cursor.getString(2);
-//                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-//                Date date = null;
-//                try {
-//                    date = format.parse(dateString);
-//                } catch (ParseException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                comment.setThoiGian(date);
                 comment.setCmt(cursor.getString(3));
                 list.add(comment);
             } while (cursor.moveToNext());
@@ -353,76 +315,6 @@ public class DBHandler extends SQLiteOpenHelper {
         return check;
     }
 
-
-//
-//    public int insert(Lop l) {
-//        mDatabase = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("MALOP", l.getMaLop());
-//        contentValues.put("TENLOP", l.getTenLop());
-//        int check = 0;
-//        int ktMaLop = kt_maLop(l.getMaLop());
-//        if (ktMaLop == 1 && ktTenLop == 1 && ktMaChuyenNganh == 1) {
-//            mDatabase.insert("LOP", null, contentValues);
-//            check = 1;
-//
-//        } else
-//            check = -1;
-//        mDatabase.close();
-//        return check;
-//
-//        //------------------------------------------------------------------------------------------
-//    }
-//
-//    public int kt_maLop(String malop)
-//    {
-//        int check=0;
-//        // 1. Kiểm tra trùng mã lớp ----------------------------------------------------------------
-//        String ktMaLop="";
-//        Cursor cursor= mDatabase.rawQuery("SELECT MaLop FROM Lop WHERE TRIM (MaLop)='"+malop+"'",null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                ktMaLop = cursor.getString(0);
-//            } while (cursor.moveToNext());
-//        }
-//
-//
-//        cursor.close();
-//        if(malop.compareTo(ktMaLop)!=0 )
-//        {
-//            check = 1; // thanh cong
-//        }
-//        else
-//        {
-//            check = -1;
-//        }
-//        return  check;
-//    }
-
-//    public int delete(String malop) {
-//        mDatabase = this.getWritableDatabase();
-//        int check = 0;
-//        int ktSinhVien = kt_CoSinhVien(malop);
-//        if (ktSinhVien == 1) {
-//            mDatabase.delete("LOP", "MALOP=?", new String[]{malop});
-//            check = 1;
-//        } else
-//            check = -1;
-//        mDatabase.close();
-//        return check;
-//    }
-//
-//
-//    public int update(Lop l) {
-//        mDatabase = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("MALOP", l.getMaLop());
-//        contentValues.put("TENLOP", l.getTenLop());
-//        int check = 0;
-//        mDatabase.update("LOP", contentValues, "MALOP=?", new String[]{l.getMaLop()});
-//        check = 1;
-//        return check;
-//    }
 
 
 }

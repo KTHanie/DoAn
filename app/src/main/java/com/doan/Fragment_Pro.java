@@ -11,14 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Fragment_Pro extends Fragment {
-    TextView c,user;
+    TextView txtlogout,tvUser;
     Fragment f;
     @Nullable
     @Override
@@ -28,14 +24,14 @@ public class Fragment_Pro extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        user=(TextView) view.findViewById(R.id.tvUser);
-        c=(TextView) view.findViewById(R.id.txtlogout);
-        user.setText(User.userName);
+        tvUser =(TextView) view.findViewById(R.id.tvUser);
+        txtlogout =(TextView) view.findViewById(R.id.txtlogout);
+        tvUser.setText(User.userName);
         if(User.userName.isEmpty())
         {
-            c.setText("Login");
+            txtlogout.setText("Login");
         }
-        c.setOnClickListener(new View.OnClickListener() {
+        txtlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(User.userName.isEmpty())

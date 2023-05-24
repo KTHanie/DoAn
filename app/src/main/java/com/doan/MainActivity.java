@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 if(edtSearch.getText().toString().isEmpty())
                     Toast.makeText(MainActivity.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
                 else {
-//                    Toast.makeText(MainActivity.this, edtSearch.getText().toString(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                     intent.putExtra("TextSearch", edtSearch.getText().toString());
                     startActivity(intent);

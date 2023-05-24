@@ -48,7 +48,6 @@ public class SearchActivity extends AppCompatActivity {
         lstv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Toast.makeText(LocationActivity.this, arrayList.get(i).getMaDD(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SearchActivity.this, Detail.class);
                 intent.putExtra("MaDD", arrayList.get(i).getMaDD());
                 startActivity(intent);
