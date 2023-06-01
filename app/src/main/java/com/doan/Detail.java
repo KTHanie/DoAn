@@ -127,7 +127,7 @@ public class Detail extends AppCompatActivity {
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                     String tg = format.format(date);
                     if (dbHandler.addCommentList(User.userName, location.getMaDD(), tg, edtBinhLuan.getText().toString()) == 1) {
-                        Toast.makeText(Detail.this, "Gửi thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Detail.this, "Bình luận thành công", Toast.LENGTH_SHORT).show();
 
                         commentArrayList = dbHandler.getListComment(maDD);
                         commentAdapter = new CommentAdapter(Detail.this, R.layout.lv_layout, commentArrayList);
@@ -135,7 +135,7 @@ public class Detail extends AppCompatActivity {
 
                         edtBinhLuan.setText("");
                     } else {
-                        Toast.makeText(Detail.this, "Gửi thất bại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Detail.this, "Bình luận thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

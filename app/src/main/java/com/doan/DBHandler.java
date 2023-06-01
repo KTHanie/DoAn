@@ -208,7 +208,8 @@ public class DBHandler extends SQLiteOpenHelper {
         mDatabase = this.getReadableDatabase();
         Cursor cursor = mDatabase.rawQuery("SELECT * FROM DiaDiem WHERE TenDiaDiem LIKE '%" + str_search + "%'", null);
         ArrayList<Location> list = new ArrayList<>();
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst())
+        {
             do {
                 Location location = new Location();
                 location.setMaDD(cursor.getString(0));
